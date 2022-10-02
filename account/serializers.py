@@ -12,13 +12,13 @@ class RegisterSerializer(serializers.ModelSerializer):
         write_only=True,
         required=True,
         validators=[validate_password],
-        stye={"input_type":"password"}
+        style={"input_type": "password"}
     )
     password1 = serializers.CharField(
         write_only=True,
         required=True,
         validators=[validate_password],
-        stye={"input_type": "password"}
+        style={"input_type": "password"}
     )
     class Meta:
         model = User
@@ -45,4 +45,3 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.set_password(password)
         user.save()
         return user
-        
