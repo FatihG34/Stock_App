@@ -15,8 +15,8 @@ class RegisterView(generics.CreateAPIView):
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
         data = serializer.data
-        if Token.objects.create(user=user).exist():
-            token = Token.objects.create(user=user)
+        if Token.objects.filter(user=user).exists():
+            token = Token.objects.get(user=user)
             data['token'] = token.key
         else:
             data['error'] = 'User do not have a token. Please Login !'
