@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Category(models.Model):
@@ -28,6 +29,12 @@ class Product(models.Model):
 
     def __str__(self):
         return self.brand + " " + self.name
+    
+    def amount_stock(self):
+        if self.transaction_product.transaction == "in":
+            self.stock += self.transaction_product.quantity
+        else:
+            self.stock += self.transaction_product.quantity
 
 
 class Firm(models.Model):
@@ -40,10 +47,14 @@ class Firm(models.Model):
 
 
 class Transaction(models.Model):
-    user = models.CharField(max_length=50)
+    QUANTITY = (
+        ("in", "IN"),
+        ("out", "OUT"),
+    )
+    user = models.ForeignKey(User, related_name="transaction_owner", on_delete=models.CASCADE)
     firm = models.ForeignKey(
         Firm, related_name="transaction_owner_firm", on_delete=models.CASCADE)
-    transaction = models.CharField(max_length=50)
+    transaction = models.CharField(max_length=50, choices=QUANTITY)
     product = models.ForeignKey(
         Product, related_name="transaction_product", on_delete=models.CASCADE)
     quantity = models.IntegerField()
