@@ -34,7 +34,7 @@ class Product(models.Model):
         if self.transaction_product.transaction == "in":
             self.stock += self.transaction_product.quantity
         else:
-            self.stock += self.transaction_product.quantity
+            self.stock -= self.transaction_product.quantity
 
 
 class Firm(models.Model):
