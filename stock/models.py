@@ -28,7 +28,7 @@ class Product(models.Model):
     def __str__(self):
         return f"{self.name} - {self.stock}"
     
-    # def amount_stock(self):
+    # def set_stock(self):
     #     if self.transaction_product.transaction == "in":
     #         self.stock += self.transaction_product.quantity
     #     else:
