@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import home, CategoryView, BrandView, ProductView, FirmView, TransactionView
+from .views import CategoryView, BrandView, ProductView, FirmView, TransactionView
 from rest_framework import routers
 
 router = routers.DefaultRouter()
@@ -10,6 +10,5 @@ router.register("firm", FirmView)
 router.register("transaction", TransactionView)
 
 urlpatterns = [
-    path('home/', home, name='home'),
 ]
 urlpatterns += router.urls

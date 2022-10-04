@@ -15,7 +15,7 @@ class BrandSerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    amount_stock = serializers.SerializerMethodField()
+    # amount_stock = serializers.SerializerMethodField()
     category = serializers.StringRelatedField(read_only=True)
     category_id = serializers.IntegerField()
     brand = serializers.StringRelatedField(read_only=True)
@@ -23,7 +23,7 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = ("id", "name", "category", "category_id",
-                  "brand", "brand_id", "stock", "amount_stock")
+                  "brand", "brand_id", "stock", "stock_amount")
     
     # def get_amount_stock(self, obj):
     #     if self.transaction_product.transaction == 'in':
@@ -45,4 +45,4 @@ class TransactionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transaction
         fields = ("id", "firm", "transaction", "product",
-                  "product_id", "quantity", "price")
+                  "product_id", "quantity", "price", "price_total")

@@ -19,22 +19,6 @@ class Brand(models.Model):
         return self.name
 
 
-class Product(models.Model):
-    name = models.CharField(max_length=50)
-    category = models.ForeignKey(Category, related_name="product_category", on_delete=models.CASCADE)
-    brand = models.ForeignKey(Brand, related_name="product_brand", on_delete=models.CASCADE)
-    stock = models.IntegerField()
-
-    def __str__(self):
-        return f"{self.name} - {self.stock}"
-    
-    # def set_stock(self):
-    #     if self.transaction_product.transaction == "in":
-    #         self.stock += self.transaction_product.quantity
-    #     else:
-    #         self.stock -= self.transaction_product.quantity
-
-
 class Firm(models.Model):
     name = models.CharField(max_length=50)
     phone = models.CharField(max_length=50)
@@ -44,12 +28,34 @@ class Firm(models.Model):
         return self.name
 
 
+class Product(models.Model):
+    name = models.CharField(max_length=50)
+    category = models.ForeignKey(
+        Category, related_name="product_category", on_delete=models.CASCADE)
+    brand = models.ForeignKey(
+        Brand, related_name="product_brand", on_delete=models.CASCADE)
+    stock = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.name} - {self.stock}"
+
+    @property
+    def stock_amount(self):
+        if True:
+            self.stock += self.transaction_product.quantity
+            return self.stock
+        else:
+            self.stock -= self.transaction_product.quantity
+            return self.stock
+
+
 class Transaction(models.Model):
     QUANTITY = (
         ("in", "IN"),
         ("out", "OUT"),
     )
-    user = models.ForeignKey(User, related_name="transaction_owner", on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, related_name="transaction_owner", on_delete=models.CASCADE)
     firm = models.ForeignKey(
         Firm, related_name="transaction_owner_firm", on_delete=models.CASCADE)
     transaction = models.CharField(max_length=50, choices=QUANTITY)
@@ -61,5 +67,6 @@ class Transaction(models.Model):
     def __str__(self):
         return f"{self.product} {self.transaction} Stock"
 
+    @property
     def price_total(self):
         return self.quantity * int(self.price)

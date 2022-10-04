@@ -1,4 +1,3 @@
-from django.shortcuts import render, HttpResponse
 from rest_framework import viewsets
 from rest_framework import permissions
 
@@ -6,10 +5,6 @@ from stock.models import Brand, Category, Firm, Product, Transaction
 from stock.serializers import BrandSerializer, CategorySerializer, FirmSerializer, TransactionSerializer, ProductSerializer
 
 # Create your views here.
-
-
-def home(request):
-    return HttpResponse("<h1>Here is Stock Page</h1>")
 
 class CategoryView(viewsets.ModelViewSet):
     queryset = Category.objects.all()
