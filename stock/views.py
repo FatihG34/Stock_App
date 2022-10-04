@@ -3,7 +3,7 @@ from rest_framework import viewsets
 from rest_framework import permissions
 
 from stock.models import Brand, Category, Firm, Product, Transaction
-from stock.serializers import BrandSerializer, CategorySerializer, FirmSerializer, TransactionSerializer
+from stock.serializers import BrandSerializer, CategorySerializer, FirmSerializer, TransactionSerializer, ProductSerializer
 
 # Create your views here.
 
@@ -22,7 +22,7 @@ class BrandView(viewsets.ModelViewSet):
 
 class ProductView(viewsets.ModelViewSet):
     queryset = Product.objects.all()
-    serializer_class = BrandSerializer
+    serializer_class = ProductSerializer
 
 class FirmView(viewsets.ModelViewSet):
     queryset = Firm.objects.all()

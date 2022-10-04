@@ -21,14 +21,12 @@ class Brand(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=50)
-    category = models.ForeignKey(
-        Category, related_name="product_category", on_delete=models.CASCADE)
-    brand = models.ForeignKey(
-        Brand, related_name="product_brand", on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, related_name="product_category", on_delete=models.CASCADE)
+    brand = models.ForeignKey(Brand, related_name="product_brand", on_delete=models.CASCADE)
     stock = models.IntegerField()
 
     def __str__(self):
-        return self.name
+        return f"{self.name} - {self.stock}"
     
     # def amount_stock(self):
     #     if self.transaction_product.transaction == "in":
