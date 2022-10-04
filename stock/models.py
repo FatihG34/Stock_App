@@ -39,15 +39,6 @@ class Product(models.Model):
     def __str__(self):
         return f"{self.name} - {self.stock}"
 
-    @property
-    def stock_amount(self):
-        if True:
-            self.stock += self.transaction_product.quantity
-            return self.stock
-        else:
-            self.stock -= self.transaction_product.quantity
-            return self.stock
-
 
 class Transaction(models.Model):
     QUANTITY = (
