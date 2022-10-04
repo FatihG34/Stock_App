@@ -10,6 +10,6 @@ router.register("firm", FirmView)
 router.register("transaction", TransactionView)
 
 urlpatterns = [
-    path('', home, name='home'),
+    path('home/', home, name='home'),
 ]
 urlpatterns += router.urls

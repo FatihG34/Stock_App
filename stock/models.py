@@ -28,13 +28,13 @@ class Product(models.Model):
     stock = models.IntegerField()
 
     def __str__(self):
-        return self.brand + " " + self.name
+        return self.name
     
-    def amount_stock(self):
-        if self.transaction_product.transaction == "in":
-            self.stock += self.transaction_product.quantity
-        else:
-            self.stock -= self.transaction_product.quantity
+    # def amount_stock(self):
+    #     if self.transaction_product.transaction == "in":
+    #         self.stock += self.transaction_product.quantity
+    #     else:
+    #         self.stock -= self.transaction_product.quantity
 
 
 class Firm(models.Model):
@@ -64,4 +64,4 @@ class Transaction(models.Model):
         return f"{self.product} {self.transaction} Stock"
 
     def price_total(self):
-        return self.quantity * self.price
+        return self.quantity * int(self.price)
