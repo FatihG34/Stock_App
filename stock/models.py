@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+# from main.settings import AUTH_USER_MODEL
 
 
 class Category(models.Model):

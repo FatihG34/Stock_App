@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # 3rd part apps
     "drf_yasg",
     "debug_toolbar",
+    "django_extensions",
 
     # my apps
     "stock",
@@ -154,3 +155,5 @@ REST_FRAMEWORK = {
 REST_AUTH_SERIALIZERS = {
     'TOKEN_SERIALIZER': 'account.serializers.CustomTokenSerializer',
 }
+
+

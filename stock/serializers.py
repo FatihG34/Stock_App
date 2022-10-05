@@ -23,13 +23,8 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = ("id", "name", "category", "category_id",
-                  "brand", "brand_id", "stock", "stock_amount")
-    
-    # def get_amount_stock(self, obj):
-    #     if self.transaction_product.transaction == 'in':
-    #         obj.stock += obj.transaction_product.quantity
-    #     else:
-    #         obj.stock -= obj.transaction_product.quantity
+                  "brand", "brand_id", "stock")
+
 
 
 class FirmSerializer(serializers.ModelSerializer):
