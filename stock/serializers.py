@@ -35,9 +35,44 @@ class FirmSerializer(serializers.ModelSerializer):
 
 
 class TransactionSerializer(serializers.ModelSerializer):
-    product = serializers.StringRelatedField(read_only=True)
+    product = ProductSerializer(read_only=True)
     product_id = serializers.IntegerField()
+    user = serializers.StringRelatedField()
+    user_id = serializers.IntegerField()
+    firm = serializers.StringRelatedField()
+    firm_id = serializers.IntegerField()
     class Meta:
         model = Transaction
-        fields = ("id", "firm", "transaction", "product",
-                  "product_id", "quantity", "price", "price_total")
+        fields = "__all__"
+        read_only_fields = ("price_total",)
+
+    def create(self, validated_data):
+        # print(validated_data)
+        quantity = validated_data["quantity"]
+        price = validated_data["price"]
+        validated_data["price_total"] = quantity * price
+        transaction_stock = Transaction.objects.create(**validated_data)
+        # print(transaction_stock)
+        return transaction_stock
+
+    def validate(self, data):
+        # print(data)
+        transaction = data["transaction"]
+        product_id = data["product_id"]
+        quantity = data["quantity"]
+        # stock_core = Product.objects.get(id=product_id)
+        stock = Product.objects.filter(id=product_id).values()
+        # print(stock_core["stock"])
+        if transaction == "in":
+            newStock = stock[0]["stock"] + quantity
+        elif quantity <= stock[0]["stock"]:
+            newStock = stock[0]["stock"] - quantity
+        else:
+            newStock = stock[0]["stock"]
+            raise serializers.ValidationError(
+                {
+                    "quantity" : "amount of product not enough ..."
+                }
+            )
+        Product.objects.filter(id=product_id).update(stock=newStock)
+        return data

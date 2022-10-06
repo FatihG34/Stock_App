@@ -54,11 +54,12 @@ class Transaction(models.Model):
     product = models.ForeignKey(
         Product, related_name="transaction_product", on_delete=models.CASCADE)
     quantity = models.IntegerField()
-    price = models.CharField(max_length=50)
+    price = models.DecimalField(max_digits=20, decimal_places=2)
+    price_total = models.DecimalField(max_digits=20, decimal_places=2)
 
     def __str__(self):
         return f"{self.product} {self.transaction} Stock"
 
-    @property
-    def price_total(self):
-        return self.quantity * int(self.price)
+    # @property
+    # def price_total(self):
+    #     return self.quantity * int(self.price)
