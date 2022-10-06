@@ -1,6 +1,5 @@
 from rest_framework import viewsets
 from rest_framework import permissions
-from .permissions import IsProductManager
 
 from stock.models import Brand, Category, Firm, Product, Transaction
 from stock.serializers import BrandSerializer, CategorySerializer, FirmSerializer, TransactionSerializer, ProductSerializer
@@ -16,6 +15,7 @@ class CategoryView(viewsets.ModelViewSet):
 class BrandView(viewsets.ModelViewSet):
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
+    permission_classes = [permissions.DjangoModelPermissions]
 
 class ProductView(viewsets.ModelViewSet):
     queryset = Product.objects.all()

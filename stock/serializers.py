@@ -2,12 +2,6 @@ from rest_framework import serializers
 from .models import Category, Product, Brand, Firm, Transaction
 
 
-class CategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Category
-        fields = ("id", "name")
-
-
 class BrandSerializer(serializers.ModelSerializer):
     class Meta:
         model = Brand
@@ -20,17 +14,28 @@ class ProductSerializer(serializers.ModelSerializer):
     category_id = serializers.IntegerField()
     brand = serializers.StringRelatedField(read_only=True)
     brand_id = serializers.IntegerField()
+
     class Meta:
         model = Product
         fields = ("id", "name", "category", "category_id",
                   "brand", "brand_id", "stock")
 
 
+class CategorySerializer(serializers.ModelSerializer):
+    # product = ProductSerializer(many=True)
+    class Meta:
+        model = Category
+        fields = (
+            "id",
+            "name",
+            # "product"
+        )
+
 
 class FirmSerializer(serializers.ModelSerializer):
     class Meta:
         model = Firm
-        fields ="__all__"
+        fields = "__all__"
         # fields = ("id", "name", "phone", "address")
 
 
@@ -41,6 +46,7 @@ class TransactionSerializer(serializers.ModelSerializer):
     user_id = serializers.IntegerField()
     firm = serializers.StringRelatedField()
     firm_id = serializers.IntegerField()
+
     class Meta:
         model = Transaction
         fields = "__all__"
@@ -71,7 +77,7 @@ class TransactionSerializer(serializers.ModelSerializer):
             newStock = stock[0]["stock"]
             raise serializers.ValidationError(
                 {
-                    "quantity" : "amount of product not enough ..."
+                    "quantity": "amount of product not enough ..."
                 }
             )
         Product.objects.filter(id=product_id).update(stock=newStock)
