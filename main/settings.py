@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "drf_yasg",
     "debug_toolbar",
     "django_extensions",
+    "django_filters",
 
     # my apps
     "stock",

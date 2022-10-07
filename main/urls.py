@@ -37,7 +37,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("stock/", include("stock.urls")),
     path("account/", include("account.urls")),
-    path("rest-auth/", include("rest_framework.urls")),
+    # path("rest-auth/", include("rest_framework.urls")),
 
 
     # url patterns for swagger
